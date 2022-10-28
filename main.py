@@ -19,26 +19,6 @@ class LostHatTests(unittest.TestCase):
         cls.url_login_page = cls.url_base + 'login?back=my-account'
         cls.url_tshirt_cart = cls.url_base + 'men/1-1-hummingbird-printed-t-shirt.html'
 
-    def test_login_page_header(self):
-        driver = self.driver
-        expected_login_header_text = "Log in to your account"
-
-        driver.get(self.url_login_page)
-        login_header = driver.find_element(By.XPATH, '//*[@id="main"]/header[@class="page-header"]/h1')
-        self.assertEqual(expected_login_header_text, login_header.text,
-                         f"Expected login header text: {expected_login_header_text}, differ from actual: "
-                         f"{login_header.text}, for page url: {self.url_login_page}")
-
-    def test_tshirt_card_header(self):
-        driver = self.driver
-        expected_tshirt_header_text = "HUMMINGBIRD PRINTED T-SHIRT"
-
-        driver.get(self.url_tshirt_cart)
-        card_header = driver.find_element(By.XPATH, '//*[@id="main"]//*[@itemprop="name"]')
-        self.assertEqual(expected_tshirt_header_text, card_header.text,
-                         f"Expected card header text: {expected_tshirt_header_text}, differ from actual: "
-                         f"{card_header.text}, for page url: {self.url_tshirt_cart}")
-
     def test_correct_login(self):
         driver = self.driver
         password = 'RbjHi4wxVeHbbE2'
@@ -61,6 +41,26 @@ class LostHatTests(unittest.TestCase):
 
         sign_out_button = driver.find_elements(By.XPATH, '//*[@href="https://autodemo.testoneo.com/en/?mylogout="]')
         sign_out_button[0].click()
+
+    def test_login_page_header(self):
+        driver = self.driver
+        expected_login_header_text = "Log in to your account"
+
+        driver.get(self.url_login_page)
+        login_header = driver.find_element(By.XPATH, '//*[@id="main"]/header[@class="page-header"]/h1')
+        self.assertEqual(expected_login_header_text, login_header.text,
+                         f"Expected login header text: {expected_login_header_text}, differ from actual: "
+                         f"{login_header.text}, for page url: {self.url_login_page}")
+
+    def test_tshirt_card_header(self):
+        driver = self.driver
+        expected_tshirt_header_text = "HUMMINGBIRD PRINTED T-SHIRT"
+
+        driver.get(self.url_tshirt_cart)
+        card_header = driver.find_element(By.XPATH, '//*[@id="main"]//*[@itemprop="name"]')
+        self.assertEqual(expected_tshirt_header_text, card_header.text,
+                         f"Expected card header text: {expected_tshirt_header_text}, differ from actual: "
+                         f"{card_header.text}, for page url: {self.url_tshirt_cart}")
 
     def test_tshirt_card_price(self):
         driver = self.driver
