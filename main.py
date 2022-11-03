@@ -1,10 +1,9 @@
-import time
-
 from selenium.webdriver.chrome.service import Service
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
 import unittest
+
+from helpers import functional_helper
 
 
 class LostHatTests(unittest.TestCase):
@@ -34,7 +33,7 @@ class LostHatTests(unittest.TestCase):
 
         driver.get(url)
 
-        self.user_login(driver, correct_login, correct_password)
+        functional_helper.user_login(driver, correct_login, correct_password)
         self.assert_element_text(driver, xpath_user_name,
                                  expected_user_name)
 
@@ -51,17 +50,9 @@ class LostHatTests(unittest.TestCase):
 
         driver.get(url)
 
-        self.user_login(driver, wrong_login, wrong_password)
+        functional_helper.user_login(driver, wrong_login, wrong_password)
         self.assert_element_text(driver, xpath_dialog_alert,
                                  expected_alert_dialog_text)
-
-    @staticmethod
-    def user_login(driver, login, wrong_password):
-        login_field = driver.find_element(By.XPATH, '//*[@id="login-form"]//*[@type="email"]')
-        login_field.send_keys(login)
-        password_field = driver.find_element(By.XPATH, '//*[@id="login-form"]//*[@type="password"]')
-        password_field.send_keys(wrong_password, Keys.ENTER)
-        time.sleep(1)
 
     def test_login_page_header(self):
         driver = self.driver
